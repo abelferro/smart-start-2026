@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  output: "export",
+  basePath: "/smart-start-2026",
+  images: {
+    unoptimized: true,
+  },
+};
 
 export default nextConfig;

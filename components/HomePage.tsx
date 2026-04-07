@@ -13,7 +13,6 @@ import {
   BarChart3,
   CheckCircle2,
   ArrowRight,
-  ChevronRight,
   ShieldCheck,
   Building2,
 } from "lucide-react";
@@ -215,24 +214,24 @@ export default function HomePage() {
                 Apply for programs, find care, select schools, and communicate with providers.
               </motion.p>
 
-              <motion.div
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-col items-center gap-4"
+              {/* Animated scroll indicator */}
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                onClick={scrollToForm}
+                aria-label="Scroll down to learn more"
+                className="flex flex-col items-center gap-2 mt-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-purple rounded-lg"
               >
-                <div aria-hidden="true" className="p-[2px] rounded-full bg-linear-to-r from-[#2a6bec] via-[#9956b9] via-[#eb4885] via-[#fcc10b] to-[#55c858] shadow-2xl">
-                  <button
-                    onClick={scrollToForm}
-                    aria-label="Get started — scroll to sign up form"
-                    className="group relative px-10 py-5 bg-white text-slate-900 rounded-full font-bold text-lg hover:bg-slate-50 transition-all active:scale-95 flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
-                  >
-                    Get Started
-                    <ChevronRight aria-hidden="true" className="group-hover:translate-x-1 transition-transform" size={20} />
-                  </button>
+                <span className="text-xs font-semibold tracking-widest uppercase text-slate-500">Scroll</span>
+                <div className="w-6 h-10 rounded-full border-2 border-slate-400 flex items-start justify-center p-1.5">
+                  <motion.div
+                    animate={{ y: [0, 14, 0] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-1.5 h-1.5 rounded-full bg-brand-purple"
+                  />
                 </div>
-                <p className="text-sm text-slate-700">No login required to begin</p>
-              </motion.div>
+              </motion.button>
             </div>
           </section>
 

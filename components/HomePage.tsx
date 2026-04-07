@@ -24,31 +24,11 @@ const FloatingBlobs = () => (
     aria-hidden="true"
     className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
   >
-    <motion.div
-      animate={{ x: [0, 150, -50, 0], y: [0, 80, 120, 0], scale: [1, 1.2, 0.9, 1], rotate: [0, 45, -45, 0] }}
-      transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-brand-blue/10 blur-[120px]"
-    />
-    <motion.div
-      animate={{ x: [0, -120, 80, 0], y: [0, 150, -50, 0], scale: [1, 1.1, 1.3, 1], rotate: [0, -30, 60, 0] }}
-      transition={{ duration: 45, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-[10%] -right-[20%] w-[60%] h-[60%] rounded-full bg-brand-purple/10 blur-[120px]"
-    />
-    <motion.div
-      animate={{ x: [0, 100, -100, 0], y: [0, -150, 100, 0], scale: [1, 1.4, 0.8, 1] }}
-      transition={{ duration: 50, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute bottom-[10%] left-[10%] w-[80%] h-[80%] rounded-full bg-brand-green/10 blur-[150px]"
-    />
-    <motion.div
-      animate={{ x: [0, -50, 50, 0], y: [0, 50, -50, 0], scale: [1, 1.2, 1] }}
-      transition={{ duration: 35, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[50%] rounded-full bg-brand-pink/10 blur-[100px]"
-    />
-    <motion.div
-      animate={{ x: [0, 80, -80, 0], y: [0, -80, 80, 0], scale: [1, 1.3, 1] }}
-      transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-[40%] right-[10%] w-[40%] h-[40%] rounded-full bg-brand-yellow/10 blur-[100px]"
-    />
+    <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-brand-blue/10 blur-[120px]" />
+    <div className="absolute top-[10%] -right-[20%] w-[60%] h-[60%] rounded-full bg-brand-purple/10 blur-[120px]" />
+    <div className="absolute bottom-[10%] left-[10%] w-[80%] h-[80%] rounded-full bg-brand-green/10 blur-[150px]" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[50%] rounded-full bg-brand-pink/10 blur-[100px]" />
+    <div className="absolute top-[40%] right-[10%] w-[40%] h-[40%] rounded-full bg-brand-yellow/10 blur-[100px]" />
   </div>
 );
 
@@ -159,16 +139,8 @@ export default function HomePage() {
             className="relative pt-20 pb-16 md:pt-32 md:pb-24 px-6 overflow-hidden"
           >
             <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-              <motion.div
-                animate={{ y: [0, -30, 0], opacity: [0.1, 0.2, 0.1] }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-0 left-1/4 w-96 h-96 bg-brand-blue/20 blur-[120px] rounded-full"
-              />
-              <motion.div
-                animate={{ y: [0, 40, 0], opacity: [0.1, 0.15, 0.1] }}
-                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-green/20 blur-[120px] rounded-full"
-              />
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-blue/20 blur-[120px] rounded-full opacity-15" />
+              <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-green/20 blur-[120px] rounded-full opacity-10" />
             </div>
 
             <div className="max-w-4xl mx-auto text-center">
@@ -487,21 +459,9 @@ export default function HomePage() {
             className="py-20 px-6 bg-[#9956b9]/5 overflow-hidden relative"
           >
             <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none">
-              <motion.div
-                animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1], rotate: [0, 90, 0] }}
-                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-1/4 -left-1/4 w-[80%] h-[80%] bg-brand-purple/20 blur-[120px] rounded-full"
-              />
-              <motion.div
-                animate={{ scale: [1.2, 1, 1.2], opacity: [0.1, 0.15, 0.1], rotate: [0, -90, 0] }}
-                transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-1/4 -right-1/4 w-[80%] h-[80%] bg-brand-blue/15 blur-[120px] rounded-full"
-              />
-              <motion.div
-                animate={{ x: [-20, 20, -20], y: [-20, 20, -20] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-pink/10 blur-[100px] rounded-full"
-              />
+              <div className="absolute -top-1/4 -left-1/4 w-[80%] h-[80%] bg-brand-purple/15 blur-[120px] rounded-full" />
+              <div className="absolute -bottom-1/4 -right-1/4 w-[80%] h-[80%] bg-brand-blue/10 blur-[120px] rounded-full" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-pink/10 blur-[100px] rounded-full" />
             </div>
 
             <div className="max-w-xl mx-auto relative z-10">

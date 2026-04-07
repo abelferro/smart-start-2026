@@ -25,6 +25,9 @@
   body {
     @apply antialiased text-slate-900 bg-white overflow-x-hidden;
   }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-purple;
+  }
 }
 
 @layer utilities {

@@ -182,7 +182,7 @@ export default function HomePage() {
                   alt="Partner Hub"
                   width={300}
                   height={160}
-                  className="h-36 w-auto mx-auto"
+                  className="h-56 w-auto mx-auto"
                   priority
                 />
               </motion.div>

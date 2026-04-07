@@ -10,7 +10,10 @@
       "Bash(git -C /Users/abelferro/GitHub/PartnerHub-Landing-Page commit -m ':*)",
       "Bash(git -C /Users/abelferro/GitHub/PartnerHub-Landing-Page push)",
       "Bash(curl -s \"https://picsum.photos/800/600\" -o /Users/abelferro/GitHub/PartnerHub-Landing-Page/public/images/placeholder.jpg)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3001)",
+      "Bash(pkill -f \"next dev\")"
     ]
   }
 }

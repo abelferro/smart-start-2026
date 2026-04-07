@@ -175,14 +175,14 @@ export default function HomePage() {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center px-6 py-3 rounded-full glass mb-8"
+                className="mb-8"
               >
                 <Image
-                  src="/images/Partner_Hub_Primary_Logo_Inline.png"
+                  src="/images/Partner_Hub_Primary_Logo_Stacked.png"
                   alt="Partner Hub"
-                  width={200}
-                  height={40}
-                  className="h-8 w-auto"
+                  width={300}
+                  height={160}
+                  className="h-36 w-auto mx-auto"
                   priority
                 />
               </motion.div>
@@ -636,9 +636,9 @@ export default function HomePage() {
                   <Image
                     src="/images/Partner_Hub_Primary_Logo_Inline.png"
                     alt="Partner Hub"
-                    width={200}
-                    height={40}
-                    className="h-7 w-auto"
+                    width={280}
+                    height={56}
+                    className="h-12 w-auto"
                   />
                   <div className="flex gap-4" aria-label="Program affiliations">
                     <div className="px-4 py-2 rounded-lg bg-white shadow-sm text-xs font-medium text-slate-700">NC Pre-K</div>

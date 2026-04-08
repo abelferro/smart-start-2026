@@ -277,7 +277,7 @@ export default function HomePage() {
           {/* Families Section */}
           <section
             aria-labelledby="families-heading"
-            className="py-20 px-6 bg-[#eb4885]/5 relative overflow-hidden"
+            className="py-24 md:py-28 px-6 bg-[#eb4885]/5 relative overflow-hidden"
           >
             <div aria-hidden="true" className="absolute top-0 right-0 w-64 h-64 bg-brand-pink/10 blur-[100px] rounded-full -z-10" />
             <div className="max-w-6xl mx-auto">
@@ -311,16 +311,6 @@ export default function HomePage() {
                     delay={0.3}
                     gradient="from-brand-pink/30 to-brand-yellow/30"
                   />
-                  <motion.button
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    onClick={scrollToForm}
-                    aria-label="Apply or get started — scroll to sign up form"
-                    className="mt-4 w-full flex items-center justify-center gap-2 text-brand-purple font-bold text-lg hover:gap-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple rounded"
-                  >
-                    See How It Works <ArrowRight aria-hidden="true" size={20} />
-                  </motion.button>
                 </div>
 
                 <motion.div
@@ -328,7 +318,7 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   aria-hidden="true"
-                  className="relative aspect-square md:aspect-auto md:h-[600px] glass rounded-[40px] overflow-hidden p-8 flex flex-col gap-6"
+                  className="relative aspect-square md:aspect-auto md:h-[600px] glass rounded-[40px] overflow-hidden p-10 md:p-12 flex flex-col gap-8"
                 >
                   <div className="flex-1 bg-slate-100 rounded-3xl overflow-hidden relative border border-slate-200">
                     <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/map/800/800')] bg-cover bg-center opacity-40 grayscale" />
@@ -365,6 +355,19 @@ export default function HomePage() {
                     <p className="text-xs text-slate-700">Your documents have been verified. You&apos;re all set!</p>
                   </div>
                 </motion.div>
+              </div>
+
+              <div className="mt-12 flex justify-center">
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  onClick={scrollToForm}
+                  aria-label="Apply or get started — scroll to sign up form"
+                  className="flex items-center justify-center gap-2 text-brand-purple font-bold text-lg hover:gap-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple rounded"
+                >
+                  See How It Works <ArrowRight aria-hidden="true" size={20} />
+                </motion.button>
               </div>
             </div>
           </section>
@@ -451,17 +454,20 @@ export default function HomePage() {
                     delay={0.3}
                     gradient="from-brand-blue/30 to-brand-purple/30"
                   />
-                  <motion.button
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    onClick={scrollToForm}
-                    aria-label="Access Provider Tools — scroll to sign up form"
-                    className="mt-4 w-full flex items-center justify-center gap-2 text-brand-pink font-bold text-lg hover:gap-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-pink rounded"
-                  >
-                    Request a Walkthrough <ArrowRight aria-hidden="true" size={20} />
-                  </motion.button>
                 </div>
+              </div>
+
+              <div className="mt-12 flex justify-center">
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  onClick={scrollToForm}
+                  aria-label="Access Provider Tools — scroll to sign up form"
+                  className="flex items-center justify-center gap-2 text-brand-pink font-bold text-lg hover:gap-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-pink rounded"
+                >
+                  Request a Walkthrough <ArrowRight aria-hidden="true" size={20} />
+                </motion.button>
               </div>
             </div>
           </section>

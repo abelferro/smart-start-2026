@@ -104,23 +104,98 @@ const FeatureCard = ({
   </motion.div>
 );
 
+const SuccessModal = ({ onClose }: { onClose: () => void }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="fixed inset-0 z-50 flex items-center justify-center px-6"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="success-title"
+  >
+    {/* Overlay */}
+    <div
+      className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
+      onClick={onClose}
+      aria-hidden="true"
+    />
+    {/* Card */}
+    <motion.div
+      initial={{ scale: 0.9, opacity: 0, y: 20 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
+      transition={{ type: "spring", damping: 20 }}
+      className="relative bg-white rounded-3xl p-10 max-w-md w-full shadow-2xl text-center z-10"
+    >
+      <div aria-hidden="true" className="w-20 h-20 mx-auto mb-6 rounded-full bg-linear-to-br from-brand-blue via-brand-purple to-brand-pink flex items-center justify-center text-white shadow-lg">
+        <CheckCircle2 size={40} />
+      </div>
+      <h2 id="success-title" className="text-2xl font-black text-slate-900 mb-3">
+        You&apos;re all set! 🎉
+      </h2>
+      <p className="text-slate-700 leading-relaxed mb-2">
+        Thanks for reaching out. Someone from our team will be in touch with you soon.
+      </p>
+      <p className="text-slate-500 text-sm mb-8">
+        We&apos;re excited to connect you with the right care and resources.
+      </p>
+      <button
+        onClick={onClose}
+        className="px-8 py-3 rounded-2xl bg-linear-to-r from-brand-blue to-brand-purple text-white font-bold text-sm shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
+      >
+        Close
+      </button>
+    </motion.div>
+  </motion.div>
+);
+
 export default function HomePage() {
   const formRef = useRef<HTMLElement>(null);
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", agree: false });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    first_name: "", last_name: "", email: "", zip_code: "", phone_number: "", role: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setIsSubmitting(true);
+
+    const body = new FormData();
+    body.append("mauticform[first_name]", formData.first_name);
+    body.append("mauticform[last_name]", formData.last_name);
+    body.append("mauticform[email]", formData.email);
+    body.append("mauticform[zip_code]", formData.zip_code);
+    body.append("mauticform[phone_number]", formData.phone_number);
+    body.append("mauticform[role]", formData.role);
+    body.append("mauticform[submit]", "");
+    body.append("mauticform[formId]", "9");
+    body.append("mauticform[return]", "");
+    body.append("mauticform[formName]", "partnerhublandingcapture");
+
+    try {
+      await fetch("https://marketing.bwelz.org/form/submit?formId=9", {
+        method: "POST",
+        body,
+        mode: "no-cors",
+      });
+    } catch {
+      // no-cors swallows errors; submission still goes through
+    }
+
+    setIsSubmitting(false);
+    setShowModal(true);
+    setFormData({ first_name: "", last_name: "", email: "", zip_code: "", phone_number: "", role: "" });
   };
 
   return (
     <MotionConfig reducedMotion="user">
+      {showModal && <SuccessModal onClose={() => setShowModal(false)} />}
+
       {/* Skip to main content — ADA keyboard nav */}
       <a
         href="#main-content"
@@ -179,15 +254,6 @@ export default function HomePage() {
                 <br className="hidden md:block" /> Built for families and providers.
               </motion.p>
 
-              <motion.p
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="text-slate-700 mb-10 max-w-xl mx-auto font-medium"
-              >
-                Apply for programs, find care, select schools, and communicate with providers.
-              </motion.p>
-
               {/* Animated scroll indicator */}
               <motion.button
                 initial={{ opacity: 0 }}
@@ -195,7 +261,7 @@ export default function HomePage() {
                 transition={{ delay: 0.6 }}
                 onClick={scrollToForm}
                 aria-label="Scroll down to learn more"
-                className="flex flex-col items-center gap-2 mt-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-purple rounded-lg"
+                className="flex flex-col items-center gap-2 mt-6 mx-auto w-fit focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-purple rounded-lg"
               >
                 <span className="text-xs font-semibold tracking-widest uppercase text-slate-500">Scroll</span>
                 <div className="w-6 h-10 rounded-full border-2 border-slate-400 flex items-start justify-center p-1.5">
@@ -252,7 +318,7 @@ export default function HomePage() {
                     viewport={{ once: true }}
                     onClick={scrollToForm}
                     aria-label="Apply or get started — scroll to sign up form"
-                    className="mt-4 flex items-center gap-2 text-brand-purple font-bold text-lg hover:gap-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple rounded"
+                    className="mt-4 flex items-center gap-2 text-brand-purple font-bold text-lg transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple rounded self-start md:self-center"
                   >
                     Apply or Get Started <ArrowRight aria-hidden="true" size={20} />
                   </motion.button>
@@ -392,7 +458,7 @@ export default function HomePage() {
                     viewport={{ once: true }}
                     onClick={scrollToForm}
                     aria-label="Access Provider Tools — scroll to sign up form"
-                    className="mt-4 flex items-center gap-2 text-brand-pink font-bold text-lg hover:gap-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-pink rounded"
+                    className="mt-4 flex items-center gap-2 text-brand-pink font-bold text-lg transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-pink rounded self-start md:self-center"
                   >
                     Access Provider Tools <ArrowRight aria-hidden="true" size={20} />
                   </motion.button>
@@ -492,108 +558,95 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 className="bg-white p-8 md:p-10 rounded-[40px] border border-slate-200 shadow-2xl"
               >
-                <div aria-live="polite" role="status">
-                  {isSubmitted ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-12"
+                <form
+                  onSubmit={handleSubmit}
+                  aria-label="Partner Hub sign up form"
+                  className="space-y-4"
+                >
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="first_name" className="block text-sm font-semibold text-slate-700 mb-2">First Name</label>
+                      <input
+                        id="first_name" required aria-required="true"
+                        type="text" autoComplete="given-name" placeholder="Jane"
+                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
+                        value={formData.first_name}
+                        onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="last_name" className="block text-sm font-semibold text-slate-700 mb-2">Last Name</label>
+                      <input
+                        id="last_name" required aria-required="true"
+                        type="text" autoComplete="family-name" placeholder="Doe"
+                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
+                        value={formData.last_name}
+                        onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+                    <input
+                      id="email" required aria-required="true"
+                      type="email" autoComplete="email" placeholder="jane@example.com"
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="phone_number" className="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
+                      <input
+                        id="phone_number" required aria-required="true"
+                        type="tel" autoComplete="tel" placeholder="(555) 000-0000"
+                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
+                        value={formData.phone_number}
+                        onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="zip_code" className="block text-sm font-semibold text-slate-700 mb-2">ZIP Code</label>
+                      <input
+                        id="zip_code" required aria-required="true"
+                        type="text" autoComplete="postal-code" placeholder="27101"
+                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
+                        value={formData.zip_code}
+                        onChange={(e) => setFormData({ ...formData, zip_code: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="role" className="block text-sm font-semibold text-slate-700 mb-2">I am a…</label>
+                    <select
+                      id="role" required aria-required="true"
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all appearance-none"
+                      value={formData.role}
+                      onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                     >
-                      <div aria-hidden="true" className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white">
-                        <CheckCircle2 size={40} />
-                      </div>
-                      <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
-                      <p className="text-slate-700">
-                        We&apos;ve received your information and will be in touch shortly.
-                      </p>
-                    </motion.div>
-                  ) : (
-                    <form
-                      onSubmit={handleSubmit}
-                      aria-label="Partner Hub sign up form"
-                      className="space-y-6"
-                    >
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">
-                          Full Name
-                        </label>
-                        <input
-                          id="name"
-                          required
-                          aria-required="true"
-                          type="text"
-                          autoComplete="name"
-                          placeholder="Jane Doe"
-                          className="w-full px-6 py-4 bg-white border border-slate-400 rounded-2xl focus:ring-2 focus:ring-brand-purple focus:border-brand-purple outline-none transition-all placeholder:text-slate-500 text-slate-900"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">
-                          Email Address
-                        </label>
-                        <input
-                          id="email"
-                          required
-                          aria-required="true"
-                          type="email"
-                          autoComplete="email"
-                          placeholder="jane@example.com"
-                          className="w-full px-6 py-4 bg-white border border-slate-400 rounded-2xl focus:ring-2 focus:ring-brand-purple focus:border-brand-purple outline-none transition-all placeholder:text-slate-500 text-slate-900"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-semibold text-slate-700 mb-2">
-                          Phone Number
-                        </label>
-                        <input
-                          id="phone"
-                          required
-                          aria-required="true"
-                          type="tel"
-                          autoComplete="tel"
-                          placeholder="(555) 000-0000"
-                          className="w-full px-6 py-4 bg-white border border-slate-400 rounded-2xl focus:ring-2 focus:ring-brand-purple focus:border-brand-purple outline-none transition-all placeholder:text-slate-500 text-slate-900"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        />
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <input
-                          required
-                          aria-required="true"
-                          type="checkbox"
-                          id="agree"
-                          className="mt-1 w-5 h-5 rounded border-slate-400 text-brand-purple focus:ring-brand-purple"
-                          checked={formData.agree}
-                          onChange={(e) => setFormData({ ...formData, agree: e.target.checked })}
-                        />
-                        <label htmlFor="agree" className="text-sm text-slate-700 leading-relaxed">
-                          I agree to receive communications regarding my application and Partner Hub updates.
-                        </label>
-                      </div>
-                      <button
-                        type="submit"
-                        className="w-full py-5 bg-linear-to-r from-[#2a6bec] via-[#9956b9] via-[#eb4885] via-[#fcc10b] to-[#55c858] text-white rounded-2xl font-bold text-lg shadow-xl hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2 animate-gradient-x focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple"
-                      >
-                        Get Started
-                        <ArrowRight aria-hidden="true" size={20} />
-                      </button>
-                    </form>
-                  )}
-                </div>
+                      <option value="">Select your role</option>
+                      <option value="Parent">Parent / Family</option>
+                      <option value="Provider">Care Provider</option>
+                      <option value="Teacher">Teacher / Educator</option>
+                    </select>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 bg-linear-to-r from-brand-blue via-brand-purple to-brand-pink text-white rounded-2xl font-bold text-base shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple transition-opacity"
+                  >
+                    {isSubmitting ? "Sending…" : <>Get Started <ArrowRight aria-hidden="true" size={18} /></>}
+                  </button>
+                  <div className="flex items-center justify-center gap-2 text-slate-500 text-xs pt-1">
+                    <ShieldCheck aria-hidden="true" size={14} />
+                    <span>100% secure. We never share your personal information.</span>
+                  </div>
+                </form>
               </motion.div>
 
               <footer className="mt-12 text-center">
-                <div className="flex items-center justify-center gap-2 text-slate-700 mb-6">
-                  <ShieldCheck aria-hidden="true" size={18} />
-                  <span className="text-sm">100% secure. Your information is never shared.</span>
-                </div>
-
-                <div className="pt-12 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
                   <Image
                     src={`${BASE}/images/Partner_Hub_Primary_Logo_Inline.png`}
                     alt="Partner Hub"

@@ -123,24 +123,24 @@ const FamiliesPreview = () => (
       </div>
     </div>
 
-    <div className="grid gap-5 bg-white px-5 py-5 sm:px-6 sm:py-6 lg:grid-cols-[0.82fr_1.18fr]">
-      <div>
-        <p className="text-2xl font-semibold text-slate-900 sm:text-3xl">Applications</p>
-        <p className="mt-2 text-sm leading-5 text-slate-500 sm:text-base">
+    <div className="grid gap-5 bg-white px-5 py-5 sm:px-6 sm:py-6 lg:gap-6">
+      <div className="max-w-2xl">
+        <p className="text-2xl font-semibold leading-tight text-slate-900 sm:text-[2.55rem] lg:text-[2.35rem]">Applications</p>
+        <p className="mt-2 text-sm leading-5 text-slate-500 sm:text-[0.98rem] lg:max-w-xl">
           Choosing early care is one of the most important decisions you&apos;ll make for your child.
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="border-b border-slate-100 pb-3 sm:border-b-0 sm:border-r sm:pr-4">
-          <p className="text-xl font-semibold text-slate-900 sm:text-2xl">Family Childcare Scholarships</p>
-          <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-base">
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="border-b border-slate-100 pb-3 lg:border-b-0 lg:border-r lg:pr-5">
+          <p className="text-xl font-semibold leading-tight text-slate-900 sm:text-[2rem] lg:text-[1.85rem]">Family Childcare Scholarships</p>
+          <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-[0.98rem]">
             Scholarships for qualifying families, with support for children from birth through age five.
           </p>
         </div>
         <div>
-          <p className="text-xl font-semibold text-slate-900 sm:text-2xl">Pre-K Program</p>
-          <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-base">
+          <p className="text-xl font-semibold leading-tight text-slate-900 sm:text-[2rem] lg:text-[1.85rem]">Pre-K Program</p>
+          <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-[0.98rem]">
             Public Pre-K classes with one clear application timeline, eligibility guidance, and next steps in one place.
           </p>
         </div>
@@ -461,13 +461,13 @@ export default function HomePage() {
                 For Families
               </SectionTitle>
 
-              <div className="grid gap-10 md:grid-cols-[1.22fr_0.78fr] md:items-start lg:gap-14">
+              <div className="grid gap-10 md:grid-cols-[1.22fr_0.78fr] md:items-stretch lg:gap-14">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, x: 20 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   aria-hidden="true"
-                  className="relative min-h-[560px] sm:min-h-[620px] md:h-[680px] lg:h-[720px] glass rounded-[40px] overflow-hidden p-4 md:p-5"
+                  className="relative min-h-[560px] sm:min-h-[620px] md:min-h-0 md:self-stretch glass rounded-[40px] overflow-hidden p-4 md:p-5"
                 >
                   <FamiliesPreview />
                 </motion.div>
@@ -529,13 +529,13 @@ export default function HomePage() {
                 For Providers
               </SectionTitle>
 
-              <div className="grid gap-10 md:grid-cols-[1.22fr_0.78fr] md:items-start lg:gap-14">
+              <div className="grid gap-10 md:grid-cols-[1.22fr_0.78fr] md:items-stretch lg:gap-14">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, x: -20 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   aria-hidden="true"
-                  className="relative min-h-[560px] sm:min-h-[620px] md:h-[680px] lg:h-[720px] glass rounded-[40px] overflow-hidden p-4 md:p-5"
+                  className="relative min-h-[560px] sm:min-h-[620px] md:min-h-0 md:self-stretch glass rounded-[40px] overflow-hidden p-4 md:p-5"
                 >
                   <ProvidersPreview />
                 </motion.div>
@@ -663,13 +663,14 @@ export default function HomePage() {
                 <form
                   onSubmit={handleSubmit}
                   aria-label="Partner Hub sign up form"
+                  autoComplete="on"
                   className="space-y-4"
                 >
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="first_name" className="block text-sm font-semibold text-slate-900 mb-2">First Name</label>
                       <input
-                        id="first_name" name="first_name" required aria-required="true"
+                        id="first_name" name="given-name" required aria-required="true"
                         type="text" autoComplete="given-name" placeholder="Jane"
                         className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
                         value={formData.first_name}
@@ -679,7 +680,7 @@ export default function HomePage() {
                     <div>
                       <label htmlFor="last_name" className="block text-sm font-semibold text-slate-900 mb-2">Last Name</label>
                       <input
-                        id="last_name" name="last_name" required aria-required="true"
+                        id="last_name" name="family-name" required aria-required="true"
                         type="text" autoComplete="family-name" placeholder="Doe"
                         className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
                         value={formData.last_name}
@@ -701,7 +702,7 @@ export default function HomePage() {
                     <div>
                       <label htmlFor="phone_number" className="block text-sm font-semibold text-slate-900 mb-2">Phone Number</label>
                       <input
-                        id="phone_number" name="phone" required aria-required="true"
+                        id="phone_number" name="tel" required aria-required="true"
                         type="tel" autoComplete="tel" placeholder="(555) 000-0000"
                         className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
                         value={formData.phone_number}
@@ -711,7 +712,7 @@ export default function HomePage() {
                     <div>
                       <label htmlFor="zip_code" className="block text-sm font-semibold text-slate-900 mb-2">ZIP Code</label>
                       <input
-                        id="zip_code" name="postal-code" required aria-required="true"
+                        id="zip_code" name="zip" required aria-required="true"
                         type="text" autoComplete="postal-code" placeholder="27101"
                         className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple outline-none transition-all"
                         value={formData.zip_code}

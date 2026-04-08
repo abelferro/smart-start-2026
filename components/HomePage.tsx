@@ -147,7 +147,7 @@ const FamiliesPreview = () => (
       </div>
     </div>
 
-    <div className="grid gap-3 rounded-[28px] border border-[#eef2fb] bg-linear-to-b from-[#f7fbff] via-[#f9fbff] to-[#fcfdff] px-5 py-4 sm:px-6 sm:py-5">
+    <div className="mx-2 grid gap-3 rounded-[28px] border border-[#eef2fb] bg-linear-to-b from-[#f7fbff] via-[#f9fbff] to-[#fcfdff] px-5 py-4 sm:mx-3 sm:px-6 sm:py-5">
       <div className="rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-xl backdrop-blur">
         <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Application Status</p>
         <div className="mt-2 flex items-center gap-3">

@@ -147,8 +147,8 @@ const FamiliesPreview = () => (
       </div>
     </div>
 
-    <div className="grid gap-3 bg-white px-5 pb-5 sm:px-6 sm:pb-6">
-      <div className="rounded-2xl border border-[#d9e8ff] bg-linear-to-br from-[#f6faff] via-[#f8fbff] to-white px-4 py-3 shadow-xl backdrop-blur">
+    <div className="grid gap-3 rounded-[28px] border border-[#eef2fb] bg-linear-to-b from-[#f7fbff] via-[#f9fbff] to-[#fcfdff] px-5 py-4 sm:px-6 sm:py-5">
+      <div className="rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-xl backdrop-blur">
         <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Application Status</p>
         <div className="mt-2 flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-600">
@@ -160,7 +160,7 @@ const FamiliesPreview = () => (
           </div>
         </div>
       </div>
-      <div className="rounded-2xl border border-[#e6ebf5] bg-linear-to-br from-[#fbfcff] via-[#f8faff] to-white px-4 py-3 shadow-xl backdrop-blur">
+      <div className="rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-xl backdrop-blur">
         <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Next Best Match</p>
         <p className="mt-2 text-sm font-semibold text-slate-900">3 providers near 27101</p>
         <p className="mt-1 text-xs text-slate-500">Filter by age, location, and schedule.</p>

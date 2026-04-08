@@ -500,16 +500,7 @@ export default function HomePage() {
               >
                 Connecting families with care to ensure they have the relational and concrete supports they need to thrive.
               </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-slate-700"
-              >
-                Smart Start of Forsyth County enriches young lives by supporting families, caregivers, and providers through high-quality early education programs.
-              </motion.p>
-            </div>
+                </div>
 
             <div aria-hidden="true" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10 opacity-30">
               <div className="absolute top-0 left-0 w-64 h-64 bg-brand-blue/50 blur-[100px] rounded-full" />

@@ -43,6 +43,10 @@ jobs:
             set ftp:ssl-protect-data true;
             set ssl:verify-certificate false;
             set ftp:passive-mode true;
+            set net:timeout 30;
+            set net:max-retries 3;
+            set net:reconnect-interval-base 5;
+            set ftp:use-feat false;
             open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
-            mirror --reverse --verbose ./out/ $FTP_DIR;
+            mirror --reverse --verbose --use-pget-n=4 ./out/ $FTP_DIR;
           "

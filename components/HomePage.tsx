@@ -461,7 +461,7 @@ export default function HomePage() {
                 For Families
               </SectionTitle>
 
-              <div className="grid gap-10 md:grid-cols-[0.78fr_1.22fr] md:items-start lg:gap-14">
+              <div className="grid gap-10 md:grid-cols-[1.22fr_0.78fr] md:items-start lg:gap-14">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, x: 20 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}

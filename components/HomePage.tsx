@@ -6,22 +6,15 @@ import React, { useState, useRef } from "react";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 import {
-  MapPin,
-  FileText,
-  MessageCircle,
-  Calendar,
-  CreditCard,
-  BarChart3,
   CheckCircle2,
   ArrowRight,
   ShieldCheck,
-  Building2,
 } from "lucide-react";
 
 const FloatingBlobs = () => (
   <div
     aria-hidden="true"
-    className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
+    className="absolute inset-0 -z-10 overflow-hidden pointer-events-none"
   >
     <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-brand-blue/10 blur-[120px]" />
     <div className="absolute top-[10%] -right-[20%] w-[60%] h-[60%] rounded-full bg-brand-purple/10 blur-[120px]" />
@@ -40,23 +33,15 @@ const SectionTitle = ({
   subtitle?: string;
   id?: string;
 }) => (
-  <div className="mb-12 text-center px-6">
+  <div className="mb-16 text-center px-6">
     <motion.h2
       id={id}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="text-3xl md:text-4xl font-bold tracking-tight mb-4 relative inline-block"
+      className="text-4xl md:text-5xl font-bold tracking-tight mb-6 gradient-text"
     >
       {children}
-      <motion.div
-        initial={{ width: 0 }}
-        whileInView={{ width: "100%" }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        aria-hidden="true"
-        className="h-1.5 absolute -bottom-2 left-0 bg-linear-to-r from-[#2a6bec] via-[#eb4885] to-[#55c858] rounded-full"
-      />
     </motion.h2>
     {subtitle && (
       <motion.p
@@ -64,7 +49,7 @@ const SectionTitle = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
-        className="text-lg text-slate-900 max-w-2xl mx-auto"
+        className="text-lg md:text-xl text-slate-900 max-w-3xl mx-auto leading-relaxed"
       >
         {subtitle}
       </motion.p>
@@ -73,17 +58,17 @@ const SectionTitle = ({
 );
 
 const FeatureCard = ({
-  icon: Icon,
+  iconSrc,
+  iconAlt,
   title,
   description,
   delay = 0,
-  gradient,
 }: {
-  icon: React.ElementType;
+  iconSrc: string;
+  iconAlt: string;
   title: string;
   description: string;
   delay?: number;
-  gradient?: string;
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
@@ -92,15 +77,166 @@ const FeatureCard = ({
     transition={{ delay, duration: 0.5 }}
     className="glass p-8 rounded-[32px] flex flex-col items-start gap-4 w-full"
   >
-    <div
-      aria-hidden="true"
-      className={`w-12 h-12 rounded-2xl bg-linear-to-br ${gradient || "from-brand-purple/20 to-brand-pink/20"} flex items-center justify-center text-slate-900`}
-    >
-      <Icon size={24} />
-    </div>
+    <Image src={iconSrc} alt={iconAlt} width={64} height={64} className="w-16 h-16" />
     <h3 className="text-xl font-semibold">{title}</h3>
     <p className="text-slate-900 leading-relaxed">{description}</p>
   </motion.div>
+);
+
+const FamiliesPreview = () => (
+  <div className="relative h-full rounded-[32px] overflow-hidden border border-white/60 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.12)]">
+    <div className="flex flex-col gap-4 border-b border-slate-100 bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+      <div className="flex min-w-0 items-center gap-3">
+        <Image
+          src={`${BASE}/images/Partner_Hub_Icon.png`}
+          alt=""
+          width={28}
+          height={28}
+          className="h-7 w-7 rounded-full shrink-0"
+        />
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-brand-blue">Smart Start</p>
+          <p className="truncate text-[11px] text-slate-500">Family programs and applications</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-2 text-[11px] text-slate-500">
+        <div className="rounded-full border border-slate-200 px-3 py-1">FAQ</div>
+        <div className="rounded-full border border-slate-200 px-3 py-1">Language</div>
+      </div>
+    </div>
+
+    <div className="bg-brand-blue px-5 py-6 text-white sm:px-6 sm:py-7">
+      <div className="grid gap-4 lg:grid-cols-[0.95fr_1.25fr] lg:items-center">
+        <div>
+          <p className="text-2xl font-semibold leading-tight sm:text-3xl">Smart Start</p>
+        </div>
+        <p className="max-w-lg text-sm leading-7 text-white/86 sm:text-base">
+          Explore scholarships, Pre-K opportunities, and family support resources from one clear starting point.
+        </p>
+      </div>
+    </div>
+
+    <div className="grid gap-6 bg-white px-5 py-5 sm:px-6 sm:py-6 lg:grid-cols-[0.9fr_1.5fr]">
+      <div>
+        <p className="text-2xl font-semibold text-slate-900 sm:text-3xl">Applications</p>
+        <p className="mt-3 text-sm leading-6 text-slate-500 sm:text-base">
+          Choosing early care is one of the most important decisions you&apos;ll make for your child.
+        </p>
+      </div>
+
+      <div className="space-y-5">
+        <div className="border-b border-slate-100 pb-4">
+          <p className="text-xl font-semibold text-slate-900 sm:text-2xl">Family Childcare Scholarships</p>
+          <p className="mt-2 text-sm leading-7 text-slate-600 sm:text-base">
+            Scholarships for qualifying families, with support for children from birth through age five.
+          </p>
+        </div>
+        <div>
+          <p className="text-xl font-semibold text-slate-900 sm:text-2xl">Pre-K Program</p>
+          <p className="mt-2 text-sm leading-7 text-slate-600 sm:text-base">
+            Public Pre-K classes with one clear application timeline, eligibility guidance, and next steps in one place.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div className="grid gap-3 bg-white px-5 pb-5 sm:grid-cols-2 sm:px-6 sm:pb-6">
+      <div className="rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-xl backdrop-blur">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Application Status</p>
+        <div className="mt-2 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-600">
+            <CheckCircle2 size={20} />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-slate-900">Application Submitted</p>
+            <p className="text-xs text-slate-500">NC Pre-K Program • Today, 10:42 AM</p>
+          </div>
+        </div>
+      </div>
+      <div className="rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-xl backdrop-blur">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Next Best Match</p>
+        <p className="mt-2 text-sm font-semibold text-slate-900">3 providers near 27101</p>
+        <p className="mt-1 text-xs text-slate-500">Filter by age, location, and schedule.</p>
+      </div>
+    </div>
+  </div>
+);
+
+const ProvidersPreview = () => (
+  <div className="relative h-full rounded-[32px] overflow-hidden border border-white/60 bg-slate-50 shadow-[0_24px_70px_rgba(15,23,42,0.12)]">
+    <div className="flex flex-col gap-4 border-b border-slate-200 bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+      <div className="flex min-w-0 items-center gap-4">
+        <div className="flex items-center gap-2 rounded-r-xl bg-brand-blue px-3 py-2 text-sm font-semibold text-white">
+          <Image
+            src={`${BASE}/images/Partner_Hub_Icon.png`}
+            alt=""
+            width={20}
+            height={20}
+            className="h-5 w-5 rounded-full"
+          />
+          <span>Partner Hub</span>
+        </div>
+        <p className="truncate text-sm font-semibold text-slate-900">Smart Start</p>
+      </div>
+      <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="rounded-full border border-slate-200 px-3 py-1">Message Center</div>
+      </div>
+    </div>
+
+    <div className="grid h-[calc(100%-81px)] md:grid-cols-[200px_1fr]">
+      <div className="border-b border-slate-200 bg-white px-4 py-4 md:border-b-0 md:border-r md:px-4 md:py-5">
+        <div className="flex gap-2 overflow-x-auto pb-1 md:block md:space-y-2 md:overflow-visible md:pb-0">
+          {["Dashboard", "Message Center", "Reports", "Attendance", "Site/Provider", "Administration", "Applications"].map((item, index) => (
+            <div
+              key={item}
+              className={`flex shrink-0 items-center gap-3 rounded-xl px-3 py-2.5 text-sm md:shrink ${
+                index === 0 ? "bg-brand-blue/8 font-semibold text-brand-blue" : "text-slate-700"
+              }`}
+            >
+              <div className={`h-2.5 w-2.5 rounded-full ${index === 0 ? "bg-brand-blue" : "bg-slate-300"}`} />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="px-4 py-4 sm:px-5 sm:py-5">
+        <p className="text-2xl font-semibold text-slate-900 sm:text-3xl">Administrator Dashboard</p>
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+            <p className="text-lg font-semibold text-slate-900 sm:text-xl">Reports</p>
+            <div className="mt-4 space-y-3 text-sm">
+              <p className="text-brand-blue">Reports</p>
+              <p className="text-brand-blue">Attendance</p>
+            </div>
+          </div>
+          <div className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+            <p className="text-lg font-semibold text-slate-900 sm:text-xl">Site/Provider Maintenance</p>
+            <div className="mt-4 space-y-3 text-sm">
+              <p className="text-brand-blue">Organizations</p>
+              <p className="text-brand-blue">Sites</p>
+              <p className="text-brand-blue">Users</p>
+            </div>
+          </div>
+          <div className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+            <p className="text-lg font-semibold text-slate-900 sm:text-xl">Attendance</p>
+            <div className="mt-4 space-y-3 text-sm">
+              <p className="text-brand-blue">Attendance</p>
+              <p className="text-brand-blue">Children</p>
+              <p className="text-brand-blue">Redetermination</p>
+            </div>
+          </div>
+          <div className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+            <p className="text-lg font-semibold text-slate-900 sm:text-xl">Applications</p>
+            <div className="mt-4 space-y-3 text-sm">
+              <p className="text-brand-blue">Manage Children Applications</p>
+              <p className="text-brand-blue">Manage Enrollments</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 );
 
 const SuccessModal = ({ onClose }: { onClose: () => void }) => (
@@ -204,14 +340,13 @@ export default function HomePage() {
       </a>
 
       <div className="relative min-h-screen font-sans selection:bg-brand-purple/30">
-        <FloatingBlobs />
-
         <main id="main-content">
           {/* Hero Section */}
           <section
             aria-label="Partner Hub introduction"
-            className="relative pt-20 pb-16 md:pt-32 md:pb-24 px-6 overflow-hidden"
+            className="relative border-b border-brand-blue/10 pt-20 pb-16 md:pt-32 md:pb-24 px-6 overflow-hidden"
           >
+            <FloatingBlobs />
             <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
               <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-blue/20 blur-[120px] rounded-full opacity-15" />
               <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-green/20 blur-[120px] rounded-full opacity-10" />
@@ -277,39 +412,39 @@ export default function HomePage() {
           {/* Families Section */}
           <section
             aria-labelledby="families-heading"
-            className="py-24 md:py-28 px-6 bg-[#eb4885]/5 relative overflow-hidden"
+            className="py-24 md:py-28 px-6 relative overflow-hidden border-t border-brand-pink/25 bg-linear-to-b from-[#ffe9f3] via-[#fff1ed] to-[#fffaf7]"
           >
-            <div aria-hidden="true" className="absolute top-0 right-0 w-64 h-64 bg-brand-pink/10 blur-[100px] rounded-full -z-10" />
+            <div aria-hidden="true" className="absolute top-0 right-0 w-72 h-72 bg-brand-pink/16 blur-[100px] rounded-full -z-10" />
             <div className="max-w-6xl mx-auto">
               <SectionTitle
                 id="families-heading"
                 subtitle="Find care, apply for programs, and stay connected with your child's journey."
-              >
+          >
                 For Families
               </SectionTitle>
 
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="grid gap-10 md:grid-cols-[0.78fr_1.22fr] md:items-start lg:gap-14">
                 <div className="grid gap-6 justify-items-start md:justify-items-center">
                   <FeatureCard
-                    icon={FileText}
+                    iconSrc={`${BASE}/icons/icon-applications.svg`}
+                    iconAlt="Secure applications icon"
                     title="Secure Applications"
                     description="Securely upload required documents and submit applications for Pre-K and scholarships in minutes."
                     delay={0.1}
-                    gradient="from-brand-blue/30 to-brand-purple/30"
                   />
                   <FeatureCard
-                    icon={MapPin}
+                    iconSrc={`${BASE}/icons/icon-mapping.svg`}
+                    iconAlt="CCR&R map icon"
                     title="CCR&R Map"
                     description="Find providers that meet your family's specific needs using our interactive resource map."
                     delay={0.2}
-                    gradient="from-brand-purple/30 to-brand-pink/30"
                   />
                   <FeatureCard
-                    icon={MessageCircle}
+                    iconSrc={`${BASE}/icons/icon-communication.svg`}
+                    iconAlt="Direct communication icon"
                     title="Direct Communication"
                     description="Check application status and communicate directly with providers through our secure messaging system."
                     delay={0.3}
-                    gradient="from-brand-pink/30 to-brand-yellow/30"
                   />
                 </div>
 
@@ -318,55 +453,25 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   aria-hidden="true"
-                  className="relative aspect-square md:aspect-auto md:h-[600px] glass rounded-[40px] overflow-hidden p-10 md:p-12 flex flex-col gap-8"
+                  className="relative min-h-[560px] sm:min-h-[620px] md:h-[680px] lg:h-[720px] glass rounded-[40px] overflow-hidden p-4 md:p-5"
                 >
-                  <div className="flex-1 bg-slate-100 rounded-3xl overflow-hidden relative border border-slate-200">
-                    <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/map/800/800')] bg-cover bg-center opacity-40 grayscale" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                      <motion.div
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="text-brand-pink"
-                      >
-                        <MapPin size={48} fill="currentColor" />
-                      </motion.div>
-                    </div>
-                    <div className="absolute bottom-4 left-4 right-4 glass p-4 rounded-2xl">
-                      <p className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">CCR&R Map</p>
-                      <p className="text-sm font-medium">32 Providers found in Forsyth County</p>
-                    </div>
-                  </div>
-
-                  <div className="h-32 glass p-6 rounded-3xl flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                      <CheckCircle2 size={24} />
-                    </div>
-                    <div>
-                      <p className="font-semibold">Application Submitted</p>
-                      <p className="text-sm text-slate-600">NC Pre-K Program • Today, 10:42 AM</p>
-                    </div>
-                  </div>
-
-                  <div className="absolute -right-4 top-1/4 glass p-4 rounded-2xl shadow-2xl hidden lg:block w-64">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-8 h-8 rounded-full bg-brand-purple/20" />
-                      <p className="text-sm font-bold">Provider Support</p>
-                    </div>
-                    <p className="text-xs text-slate-900">Your documents have been verified. You&apos;re all set!</p>
-                  </div>
+                  <FamiliesPreview />
                 </motion.div>
               </div>
 
-              <div className="mt-12 flex justify-center">
+              <div className="mt-16 flex justify-center">
                 <motion.button
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
                   onClick={scrollToForm}
                   aria-label="Apply or get started — scroll to sign up form"
-                  className="flex items-center justify-center gap-2 text-brand-purple font-bold text-lg hover:gap-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple rounded"
+                  className="group inline-flex items-center justify-center gap-3 rounded-full bg-linear-to-r from-[#8d58c8] via-[#b567c7] to-[#eb7a9f] px-8 py-4 text-lg font-bold text-white shadow-[0_18px_45px_rgba(149,86,185,0.24)] ring-1 ring-white/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(149,86,185,0.3)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-purple"
                 >
-                  See How It Works <ArrowRight aria-hidden="true" size={20} />
+                  <span>See How It Works</span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/18 transition-transform duration-300 group-hover:translate-x-1">
+                    <ArrowRight aria-hidden="true" size={20} />
+                  </span>
                 </motion.button>
               </div>
             </div>
@@ -375,98 +480,66 @@ export default function HomePage() {
           {/* Providers Section */}
           <section
             aria-labelledby="providers-heading"
-            className="py-20 px-6 bg-[#2a6bec]/5 relative overflow-hidden"
+            className="py-24 md:py-28 px-6 relative overflow-hidden border-t border-brand-blue/25 bg-linear-to-b from-[#e8f2ff] via-[#eef7ff] to-[#fafcff]"
           >
-            <div aria-hidden="true" className="absolute bottom-0 left-0 w-64 h-64 bg-brand-blue/10 blur-[100px] rounded-full -z-10" />
+            <div aria-hidden="true" className="absolute bottom-0 left-0 w-72 h-72 bg-brand-blue/16 blur-[100px] rounded-full -z-10" />
             <div className="max-w-6xl mx-auto">
               <SectionTitle
                 id="providers-heading"
                 subtitle="Manage attendance, payments, and support families from one centralized system."
-              >
+          >
                 For Providers
               </SectionTitle>
 
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="grid gap-10 md:grid-cols-[1.22fr_0.78fr] md:items-start lg:gap-14">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, x: -20 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true }}
                   aria-hidden="true"
-                  className="relative aspect-square md:aspect-auto md:h-[600px] glass rounded-[40px] overflow-hidden p-8 flex flex-col gap-6 order-2 md:order-1"
+                  className="relative min-h-[560px] sm:min-h-[620px] md:h-[680px] lg:h-[720px] glass rounded-[40px] overflow-hidden p-4 md:p-5 order-2 md:order-1"
                 >
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="glass p-6 rounded-3xl">
-                      <p className="text-xs font-bold text-slate-600 uppercase mb-2">Attendance</p>
-                      <p className="text-3xl font-bold text-brand-purple">94%</p>
-                      <p className="text-xs text-green-700 mt-1">+2% from last week</p>
-                    </div>
-                    <div className="glass p-6 rounded-3xl">
-                      <p className="text-xs font-bold text-slate-600 uppercase mb-2">Payments</p>
-                      <p className="text-3xl font-bold text-brand-pink">$12.4k</p>
-                      <p className="text-xs text-slate-900 mt-1">Pending verification</p>
-                    </div>
-                  </div>
-
-                  <div className="flex-1 glass rounded-3xl p-6 overflow-hidden">
-                    <div className="flex items-center justify-between mb-6">
-                      <p className="font-bold">Recent Invoices</p>
-                      <BarChart3 size={20} className="text-slate-600" />
-                    </div>
-                    <div className="space-y-4">
-                      {[1, 2, 3].map((i) => (
-                        <div key={i} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-slate-100" />
-                            <div>
-                              <p className="text-sm font-semibold">Site #{100 + i}</p>
-                              <p className="text-xs text-slate-900">Monthly Report</p>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-sm font-bold">$2,450.00</p>
-                            <p className="text-[10px] text-green-700 font-bold uppercase">Paid</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <ProvidersPreview />
                 </motion.div>
 
                 <div className="grid gap-6 order-1 md:order-2 justify-items-start md:justify-items-center">
                   <FeatureCard
-                    icon={Calendar}
+                    iconSrc={`${BASE}/icons/icon-attendance.svg`}
+                    iconAlt="Attendance tracking icon"
                     title="Attendance Tracking"
                     description="Keep accurate attendance records with our easy-to-use digital check-in system."
                     delay={0.1}
-                    gradient="from-brand-yellow/30 to-brand-green/30"
                   />
                   <FeatureCard
-                    icon={CreditCard}
+                    iconSrc={`${BASE}/icons/icon-invoices.svg`}
+                    iconAlt="Payment management icon"
                     title="Payment Management"
                     description="Manage provider payments and track invoices with full transparency and automated reporting."
                     delay={0.2}
-                    gradient="from-brand-green/30 to-brand-blue/30"
                   />
                   <FeatureCard
-                    icon={Building2}
+                    iconSrc={`${BASE}/icons/icon-data.svg`}
+                    iconAlt="Site management icon"
                     title="Site Management"
                     description="Manage multiple sites, run comprehensive reports, and ensure compliance across your organization."
                     delay={0.3}
-                    gradient="from-brand-blue/30 to-brand-purple/30"
                   />
                 </div>
               </div>
 
-              <div className="mt-12 flex justify-center">
+              <div className="mt-16 flex justify-center">
                 <motion.button
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
                   onClick={scrollToForm}
                   aria-label="Access Provider Tools — scroll to sign up form"
-                  className="flex items-center justify-center gap-2 text-brand-pink font-bold text-lg hover:gap-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-pink rounded"
+                  className="group inline-flex items-center justify-center gap-3 rounded-full bg-linear-to-r from-[#2a6bec] via-[#5e8df0] to-[#8cb3ff] px-8 py-4 text-lg font-bold text-white shadow-[0_18px_45px_rgba(42,107,236,0.24)] ring-1 ring-white/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(42,107,236,0.3)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-blue"
                 >
-                  Request a Walkthrough <ArrowRight aria-hidden="true" size={20} />
+                  <span>Request a Walkthrough</span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/18 transition-transform duration-300 group-hover:translate-x-1">
+                    <ArrowRight aria-hidden="true" size={20} />
+                  </span>
                 </motion.button>
               </div>
             </div>
@@ -475,14 +548,14 @@ export default function HomePage() {
           {/* Supporting Section */}
           <section
             aria-labelledby="supporting-heading"
-            className="py-24 px-6 text-center relative overflow-hidden bg-[#55c858]/5"
+            className="py-24 px-6 text-center relative overflow-hidden border-t border-brand-green/25 bg-linear-to-b from-[#eefde7] via-[#f7fff1] to-[#fcfff9] isolate"
           >
             {/* NC Map background */}
-            <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
+            <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
               <img
                 src={`${BASE}/images/north_carolina_map.svg`}
                 alt=""
-                className="w-full max-w-5xl opacity-10 select-none p-8"
+                className="w-full max-w-4xl opacity-15 select-none p-12 md:p-16"
               />
             </div>
 
@@ -513,7 +586,7 @@ export default function HomePage() {
             ref={formRef}
             id="get-started"
             aria-labelledby="cta-heading"
-            className="py-20 px-6 bg-[#9956b9]/5 overflow-hidden relative"
+            className="py-24 px-6 overflow-hidden relative border-t border-brand-purple/25 bg-linear-to-b from-[#f5ebff] via-[#fbf4ff] to-[#fffafe]"
           >
             <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none">
               <div className="absolute -top-1/4 -left-1/4 w-[80%] h-[80%] bg-brand-purple/15 blur-[120px] rounded-full" />

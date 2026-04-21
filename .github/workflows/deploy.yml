@@ -65,6 +65,7 @@ jobs:
             set net:max-retries 3;
             set net:reconnect-interval-base 5;
             set ftp:use-feat false;
+            set cmd:fail-exit true;
             open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
             cd $FTP_DIR;
             mirror --reverse --verbose --use-pget-n=4 ./out/ .;
